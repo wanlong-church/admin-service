@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "admin-service"
+version = "0.1.0"
+description = ""
+authors = ["Schwannden Kuo <schwannden@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.1"
+djangorestframework = "^3.15.2"
+markdown = "^3.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
