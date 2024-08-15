@@ -65,7 +65,6 @@ urlpatterns = [
     ),
     # Services
     path("services/", views.ServiceListView.as_view(), name="list"),
-    path("services/<int:pk>/", views.ServiceDetailView.as_view(), name="detail"),
     path("services/create/", views.ServiceCreateView.as_view(), name="create"),
     path("services/<int:pk>/update/", views.ServiceUpdateView.as_view(), name="update"),
     path("services/<int:pk>/delete/", views.ServiceDeleteView.as_view(), name="delete"),
