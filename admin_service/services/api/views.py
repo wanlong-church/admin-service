@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import generics
-from .models import ServiceType, ServiceGroup, ServiceNote, Service
-from .serializers import ServiceTypeSerializer, ServiceGroupSerializer, ServiceNoteSerializer, ServiceSerializer
+from ..models import ServiceType, ServiceGroup, ServiceNote, Service
+from ..serializers import ServiceTypeSerializer, ServiceGroupSerializer, ServiceNoteSerializer, ServiceSerializer
 
 class ServiceTypeList(generics.ListCreateAPIView):
     queryset = ServiceType.objects.all()

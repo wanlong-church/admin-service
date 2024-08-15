@@ -15,15 +15,16 @@ class TestConfig:
 class ModelTestCase(TestCase):
     def setUp(self):
         self.service_note = ServiceNote.objects.create(content=TestConfig.NOTE)
+        self.service_group = ServiceGroup.objects.create(name=TestConfig.GROUP)
         self.service_type = ServiceType.objects.create(
             name=TestConfig.SERVICE_TYPE,
             start_time=TestConfig.START_TIME,
-            end_time=TestConfig.END_TIME
+            end_time=TestConfig.END_TIME,
+            service_group=self.service_group
         )
-        self.service_group = ServiceGroup.objects.create(name=TestConfig.GROUP)
+        self.service_type.notes.add(self.service_note)
         self.service = Service.objects.create(
             service_type=self.service_type,
-            service_group=self.service_group,
             date=date.today()
         )
 
@@ -40,14 +41,21 @@ class ModelTestCase(TestCase):
         expected = f"Service {self.service.id} - {TestConfig.SERVICE_TYPE}"
         self.assertEqual(str(self.service), expected)
 
+    def test_service_type_service_group(self):
+        self.assertEqual(self.service_type.service_group, self.service_group)
+
+    def test_service_type_notes(self):
+        self.assertIn(self.service_note, self.service_type.notes.all())
+
 class APITestCase(APITestCase):
     def setUp(self):
+        self.service_group = ServiceGroup.objects.create(name=TestConfig.GROUP)
         self.service_type = ServiceType.objects.create(
             name=TestConfig.SERVICE_TYPE,
             start_time=TestConfig.START_TIME,
-            end_time=TestConfig.END_TIME
+            end_time=TestConfig.END_TIME,
+            service_group=self.service_group
         )
-        self.service_group = ServiceGroup.objects.create(name=TestConfig.GROUP)
 
     def test_list_service_types(self):
         url = reverse('service:type-list')
@@ -60,7 +68,8 @@ class APITestCase(APITestCase):
         data = {
             'name': TestConfig.SERVICE_TYPE,
             'start_time': TestConfig.START_TIME.strftime('%H:%M:%S'),
-            'end_time': TestConfig.END_TIME.strftime('%H:%M:%S')
+            'end_time': TestConfig.END_TIME.strftime('%H:%M:%S'),
+            'service_group': self.service_group.id
         }
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -76,7 +85,6 @@ class APITestCase(APITestCase):
         url = reverse('service:list')
         data = {
             'service_type': self.service_type.id,
-            'service_group': self.service_group.id,
             'date': date.today().strftime('%Y-%m-%d')
         }
         response = self.client.post(url, data)

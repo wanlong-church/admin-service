@@ -12,5 +12,6 @@ handler404 = "errors.handler404"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/', include('services.urls')),
+    path('api/', include('services.api.urls', namespace='api')),
+    path('web/', include('services.web.urls', namespace='web')),
 ]

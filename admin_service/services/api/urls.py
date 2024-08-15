@@ -1,5 +1,5 @@
 """
-URL configuration for service app.
+URL configuration for service app REST API.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
