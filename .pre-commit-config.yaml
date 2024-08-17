@@ -26,6 +26,10 @@ repos:
         additional_dependencies:
           - django-stubs
           - djangorestframework-stubs
+          - django-allauth
           - djangorestframework
+          - python-dotenv
+          - pyjwt
+          - cryptography
         env:
           DJANGO_SETTINGS_MODULE: admin_service.settings

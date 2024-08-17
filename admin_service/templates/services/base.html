@@ -54,14 +54,14 @@
                              aria-labelledby="user-menu-button"
                              tabindex="-1">
                             <div class="py-1" role="none">
-                                <form method="post" action="{% url 'logout' %}">
+                                <form method="post" action="{% url 'account_logout' %}">
                                     {% csrf_token %}
                                     <button type="submit" class="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">Logout</button>
                                 </form>
                             </div>
                         </div>
                     {% else %}
-                        <a href="{% url 'login' %}" class="text-gray-300 hover:text-white">Login</a>
+                        <a href="{% url 'account_login' %}" class="text-gray-300 hover:text-white">Login</a>
                     {% endif %}
                 </div>
             </div>
